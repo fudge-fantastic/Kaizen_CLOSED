@@ -7,7 +7,7 @@ import numpy as np
 
 saved_model = joblib.load('trained_model_loan_exp_LR.pkl')
 
-classification_pipeline = (
+classification_pipeline = Pipeline(
     [
         ('MeanImputation', pp.MeanImputer(variables=config.NUM_FEATURES)),
         ('ModeImputation', pp.ModeImputer(variables=config.CAT_FEATURES)),

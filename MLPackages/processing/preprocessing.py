@@ -62,7 +62,8 @@ class DomainProcessing(BaseEstimator, TransformerMixin):
     
     def transform(self, X):
         X = X.copy()
-        X[self.variables_to_modify] = X[self.variables_to_modify] + X[self.variables_to_add]
+        for features in self.variables_to_modify:
+            X[features] = X[features] + X[self.variables_to_add]
         return X
     
 # Label Encoder
