@@ -12,14 +12,14 @@ TRAIN_DATA = "train.csv"
 TEST_DATA = "test.csv"
 
 # Trained and Saved models
-MODEL_SAVED = "classification.pkl"
+MODEL_SAVED = "classification_model.pkl"
 SAVED_MODEL_PATH = os.path.join(ROOT_PACKAGES, "trained_models")
 
 TARGET = ['Loan_Status']
 
 FEATURES = ['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed',
        'ApplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History',
-       'Property_Area', 'CoApplicantIncome']
+       'Property_Area', 'CoapplicantIncome']
 
 NUM_FEATURES = ['ApplicantIncome', 'LoanAmount', 'Loan_Amount_Term']
 
@@ -31,8 +31,8 @@ FEATURES_TO_ENCODE = ['Gender', 'Married', 'Dependents', 'Education', 'Self_Empl
 
 # Recall the time, when we added a new feature in our ipynb file
 FEATURE_TO_MODIFY = ['ApplicantIncome']
-FEATURE_TO_ADD = 'CoApplicantIncome'
+FEATURE_TO_ADD = 'CoapplicantIncome'
 
-FEATURE_TO_DROP = ['CoApplicantIncome']
+FEATURE_TO_DROP = ['CoapplicantIncome']
 
 FEATURES_TO_TRANSFORM = ['ApplicantIncome', 'LoanAmount', 'Loan_Amount_Term']

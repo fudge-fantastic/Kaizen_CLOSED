@@ -4,8 +4,13 @@ from MLPackages.processing import preprocessing as pp
 from sklearn.preprocessing import MinMaxScaler
 import joblib
 import numpy as np
+import os
+import MLPackages
 
-saved_model = joblib.load('trained_model_loan_exp_LR.pkl')
+path1 = os.path.dirname(MLPackages.__file__)
+path2 = os.path.join(path1, 'classification.pkl')
+
+saved_model = joblib.load(path2)
 
 classification_pipeline = Pipeline(
     [

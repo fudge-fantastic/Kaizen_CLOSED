@@ -4,6 +4,8 @@ from MLPackages.config import config
 from MLPackages.processing.data_handling import load_dataset, save_pipeline
 import MLPackages.processing.preprocessing as pp
 import MLPackages.pipeline as pipe
+import warnings
+warnings.filterwarnings('ignore')
 
 def perform_training():
     train_data = load_dataset(config.TRAIN_DATA)
