@@ -12,8 +12,10 @@ TRAIN_DATA = "train.csv"
 TEST_DATA = "test.csv"
 
 # Trained and Saved models
+npath1 = os.path.dirname(MLPackages.__file__)
 MODEL_SAVED = "classification_model.pkl"
-SAVED_MODEL_PATH = os.path.join(ROOT_PACKAGES, "trained_models")
+SAVED_MODEL_PATH = os.path.join(npath1, 'trained_models')
+# SAVED_MODEL_PATH = os.path.join(ROOT_PACKAGES, "trained_models")
 
 TARGET = ['Loan_Status']
 
