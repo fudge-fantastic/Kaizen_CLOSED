@@ -10,7 +10,7 @@ import MLPackages
 path1 = os.path.dirname(MLPackages.__file__)
 path2 = os.path.join(path1, 'classification.pkl')
 
-saved_model = joblib.load(path2)
+load_model = joblib.load(path2)
 
 classification_pipeline = Pipeline(
     [
@@ -22,6 +22,6 @@ classification_pipeline = Pipeline(
         ('LogTransformation', pp.LogTransformer(variables=config.FEATURES_TO_TRANSFORM)),
         # Here you CAN create your custom Scaler, but we'll use the default Scaler
         ('MinMaxScaler', MinMaxScaler()),
-        ('Model', saved_model)
+        ('Model', load_model)
     ]
 )
