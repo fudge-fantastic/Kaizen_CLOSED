@@ -41,6 +41,7 @@ setup(
     author_email=EMAIL,
     python_requires = REQUIRED_PYTHON,
     url = URL,
+    packages= ['config', 'datasets', 'processing', 'trained_models'],
     package_data= {'MLPackages' : ['VERSION.txt']},
     install_requires = list_req(),
     include_package_data= True,
