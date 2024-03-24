@@ -1,8 +1,19 @@
 # Output from the predict.py script shouldn't be null 
 # Output from the predict.py script must be in str data type
+# After successfully completing the file structure, make sure to run the command: pytest or pytest -v
+
+import sys
 import pytest
-from ..MLPackages.config import config
-from ..MLPackages.processing.data_handling import load_dataset
+import os
+
+parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+sys.path.append(parent_dir)
+import MLPackages
+path = os.path.dirname(MLPackages.__file__)
+sys.path.append(path)
+
+from MLPackages.config import config
+from MLPackages.processing.data_handling import load_dataset
 from predict import generate_predictions
 
 # Fixtures ---> Functions before the test function ---> Ensure single_prediction works 

@@ -17,7 +17,7 @@ def generate_predictions(data_input):
     data = pd.DataFrame(data_input)
     pred = classification_pipeline.predict(data[config.FEATURES])
     output = np.where(pred==1, "Y", "N")
-    result = {'Prediction': output}
+    result = {'prediction': output}
     return result
 
 # def generate_predictions():

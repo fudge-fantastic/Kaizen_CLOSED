@@ -22,11 +22,15 @@
     │   ├── __init.py
     │   ├── pipeline.py
     │   ├── README.md
-    │   ├── requirements.txt
     │   ├── setup.py
-    │   └── classification.pkl
+    │   ├── classification.pkl
+    │   ├── MANIFEST.in
+    │   └── VERSION
+    ├── venv
     ├── .gitignore
     ├── Loan_experiment.ipynb
+    ├── requirements.txt
+    ├── README.md
     ├── test.yaml
     ├── training_pipeline.py
     └── predict.py
