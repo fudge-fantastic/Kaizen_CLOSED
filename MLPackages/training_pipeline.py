@@ -1,3 +1,12 @@
+import os
+import sys
+
+# This file is inside the MLPackages, so it won't be able to understand wtf is MLPackages
+# So we're gonna join the parent path.
+path1 = os.getcwd()
+path2 = os.path.dirname(path1)
+sys.path.append(path2)
+
 import pandas as pd 
 import numpy as np
 from MLPackages.config import config
