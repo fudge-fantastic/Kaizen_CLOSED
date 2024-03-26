@@ -1,0 +1,37 @@
+.
+└── MLOPS/
+    ├── misc/
+    │   ├── architecture.txt
+    │   └── Loan_Experiment.ipynb
+    ├── MLPackages/
+    │   ├── config/
+    │   │   ├── __init__.py
+    │   │   └── config.py
+    │   ├── datasets/
+    │   │   ├── __init__.py
+    │   │   ├── train.csv
+    │   │   └── test.csv
+    │   ├── processing/
+    │   │   ├── __init__.py
+    │   │   ├── data_handling.py
+    │   │   └── preprocessing.py
+    │   ├── tests/
+    │   │   └── test_prediction.py
+    │   ├── trained_models/
+    │   │   ├── __init__.py
+    │   │   └── classification_model.pkl
+    │   ├── __init.py
+    │   ├── check_ifit_works.ipynb
+    │   ├── classification.pkl
+    │   ├── pipeline.py
+    │   ├── predict.py
+    │   └── training_pipeline.py
+    ├── .gitignore
+    ├── MANIFEST.in
+    ├── README.md
+    ├── debug.ipynb
+    ├── requirements.txt
+    ├── setup.py
+    └── test.yaml
+
+https://tree.nathanfriend.io/?s=(%27options!(%27fancy7~fullPath!false~9iKgSlash7~rootDot7)~B(%27B%27MLOPS3MLPackages*config0-config2datasets0-95I-6I80-data_handKg2-pre826s*-6_Cion4s0H2G2C2README.md*requirements.txt*setup4_lF_LR.pkl*955g_G.py3.gitignore3LFeriment.ipynb36.yamlJ%27)~version!%271%27)*3--%20%200*-H__22.py*3J-4295ed_modeKin6test7!true8process5g9traBsource!CpredictFoan_expGpipeKeH__5itI.csv*J%5CnKl5%01KJIHGFCB987654320-*

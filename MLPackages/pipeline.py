@@ -1,16 +1,22 @@
+import os
+import sys
+
+path1 = os.getcwd()
+path2 = os.path.dirname(path1)
+sys.path.append(path2)
+
 from sklearn.pipeline import Pipeline
 from MLPackages.config import config
 from MLPackages.processing import preprocessing as pp
 from sklearn.preprocessing import MinMaxScaler
 import joblib
 import numpy as np
-import os
 import MLPackages
 
-path1 = os.path.dirname(MLPackages.__file__)
-path2 = os.path.join(path1, 'classification.pkl')
+path3 = os.path.dirname(MLPackages.__file__)
+path4 = os.path.join(path3, 'classification.pkl')
 
-load_model = joblib.load(path2)
+saved_model = joblib.load(path4)
 
 classification_pipeline = Pipeline(
     [
@@ -25,3 +31,10 @@ classification_pipeline = Pipeline(
         ('Model', load_model)
     ]
 )
+
+# def if_working():
+#     word = print("Working well without import errors")
+#     return word
+
+# if __name__ == '__main__':
+#     if_working()

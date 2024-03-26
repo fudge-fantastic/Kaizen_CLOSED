@@ -1,3 +1,10 @@
+import os
+import sys
+path1 = os.getcwd()
+path2 = os.path.dirname(path1)
+path3 = os.path.dirname(path2)
+sys.path.append(path3)
+
 from sklearn.base import BaseEstimator, TransformerMixin
 from MLPackages.config import config
 import numpy as np
@@ -98,3 +105,10 @@ class LogTransformer(BaseEstimator, TransformerMixin):
             X[col] = np.log(X[col])
         return X
    
+
+# def if_working():
+#     word = print("Working well without import errors")
+#     return word
+
+# if __name__ == '__main__':
+#     if_working()
