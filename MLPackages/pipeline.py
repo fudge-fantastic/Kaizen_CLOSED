@@ -28,7 +28,7 @@ classification_pipeline = Pipeline(
         ('LogTransformation', pp.LogTransformer(variables=config.FEATURES_TO_TRANSFORM)),
         # Here you CAN create your custom Scaler, but we'll use the default Scaler
         ('MinMaxScaler', MinMaxScaler()),
-        ('Model', saved_model)
+        ('Model', load_model)
     ]
 )
 
