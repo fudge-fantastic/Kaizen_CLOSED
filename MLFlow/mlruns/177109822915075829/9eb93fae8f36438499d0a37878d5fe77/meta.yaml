@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/177109822915075829/9eb93fae8f36438499d0a37878d5fe77/artifacts
+end_time: 1711551655742
+entry_point_name: ''
+experiment_id: '177109822915075829'
+lifecycle_stage: active
+run_id: 9eb93fae8f36438499d0a37878d5fe77
+run_name: fun-asp-798
+run_uuid: 9eb93fae8f36438499d0a37878d5fe77
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711551651366
+status: 3
+tags: []
+user_id: Dell
