@@ -32,16 +32,17 @@ dataset[numeric_columns] = numeric_imputer.fit_transform(dataset[numeric_columns
 
 # Dealing with outliers
 columns_2_transform = ['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount']
-dataset[columns_2_transform] = [[np.log1p(value) for value in dataset[column]] for column in columns_2_transform]
+for col in columns_2_transform:
+    dataset[col] = np.log1p(dataset[col])
 
 # Data Processing
 dataset['TotalIncome'] = dataset['ApplicantIncome'] + dataset['CoapplicantIncome']
 columns_2_drop = ['ApplicantIncome', 'CoapplicantIncome']
-dataset = dataset.drop(columns = columns_2_drop, inplace = True)
+dataset = dataset.drop(columns = columns_2_drop)
 
 le = LabelEncoder()
 for col in categorical_columns:
-    dataset[categorical_columns] = le.fit_transform(dataset[categorical_columns])
+    dataset[col] = le.fit_transform(dataset[col])
 
 dataset['Loan_Status'] = le.fit_transform(dataset['Loan_Status'])
 
@@ -86,3 +87,29 @@ def eval_metrics(actual, pred):
     # Close plot
     plt.close()
     return (accuracy, precision, recall, f1, auc)
+
+
+def mlflow_logging(model, X, y, name):
+    with mlflow.start_run() as run:
+        # mlflow.set_tracking_uri("http://0.0.0.0:5000/")
+        run_id = run.info.run_id
+        mlflow.set_tag("run_id", run_id)      
+        pred = model.predict(X)
+        # Calculate evaluation metrics
+        (accuracy, precision, recall, f1, auc) = eval_metrics(y, pred)
+        # Log evaluation metrics
+        mlflow.log_metric("Accuracy", accuracy)
+        mlflow.log_metric("Precision", precision)
+        mlflow.log_metric("Recall", recall)
+        mlflow.log_metric("F1-score", f1)
+        mlflow.log_metric("AUC", auc)
+        # Log artifacts and model
+        mlflow.log_artifact("plots/ROC_curve.png")
+        mlflow.sklearn.log_model(model, name)
+        # End the MLflow run
+        mlflow.end_run()
+
+mlflow_logging(model_dt, X_test, y_test, "DecisionTreeClassifier")
+mlflow_logging(model_log, X_test, y_test, "LogisticRegression")
+mlflow_logging(model_abc, X_test, y_test, "AdaBoostClassifier")
+mlflow_logging(model_gbc, X_test, y_test, "GradientBoostingClassifier")

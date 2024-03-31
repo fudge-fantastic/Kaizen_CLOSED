@@ -1,0 +1,16 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/121270824730287580/9b2ac310e60b4a6ea897c08d5d75b2ba/artifacts
+deleted_time: 1711876552456
+end_time: null
+entry_point_name: ''
+experiment_id: '121270824730287580'
+lifecycle_stage: deleted
+run_id: 9b2ac310e60b4a6ea897c08d5d75b2ba
+run_name: upbeat-bug-150
+run_uuid: 9b2ac310e60b4a6ea897c08d5d75b2ba
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711875992409
+status: 1
+tags: []
+user_id: Dell

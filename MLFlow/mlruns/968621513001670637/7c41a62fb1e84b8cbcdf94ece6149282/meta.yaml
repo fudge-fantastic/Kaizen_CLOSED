@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/968621513001670637/7c41a62fb1e84b8cbcdf94ece6149282/artifacts
+end_time: 1711877125655
+entry_point_name: ''
+experiment_id: '968621513001670637'
+lifecycle_stage: active
+run_id: 7c41a62fb1e84b8cbcdf94ece6149282
+run_name: trusting-whale-624
+run_uuid: 7c41a62fb1e84b8cbcdf94ece6149282
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711877114601
+status: 3
+tags: []
+user_id: Dell

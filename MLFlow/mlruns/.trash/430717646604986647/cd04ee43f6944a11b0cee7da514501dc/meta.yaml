@@ -1,0 +1,16 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/430717646604986647/cd04ee43f6944a11b0cee7da514501dc/artifacts
+deleted_time: 1711876574569
+end_time: 1711545044189
+entry_point_name: ''
+experiment_id: '430717646604986647'
+lifecycle_stage: deleted
+run_id: cd04ee43f6944a11b0cee7da514501dc
+run_name: peaceful-lynx-341
+run_uuid: cd04ee43f6944a11b0cee7da514501dc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711545044080
+status: 3
+tags: []
+user_id: Dell
