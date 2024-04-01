@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/968621513001670637/d8ed4e8d0a1b438c921002a2b43d55fd/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '968621513001670637'
+lifecycle_stage: active
+run_id: d8ed4e8d0a1b438c921002a2b43d55fd
+run_name: resilient-shrew-669
+run_uuid: d8ed4e8d0a1b438c921002a2b43d55fd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711976179587
+status: 1
+tags: []
+user_id: Dell

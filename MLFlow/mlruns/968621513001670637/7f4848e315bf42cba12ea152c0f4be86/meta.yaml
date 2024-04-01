@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/968621513001670637/7f4848e315bf42cba12ea152c0f4be86/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '968621513001670637'
+lifecycle_stage: active
+run_id: 7f4848e315bf42cba12ea152c0f4be86
+run_name: selective-finch-176
+run_uuid: 7f4848e315bf42cba12ea152c0f4be86
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711975598876
+status: 1
+tags: []
+user_id: Dell

@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/968621513001670637/52136efcf5fc4f32891dd9a4431bc92f/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '968621513001670637'
+lifecycle_stage: active
+run_id: 52136efcf5fc4f32891dd9a4431bc92f
+run_name: traveling-gull-926
+run_uuid: 52136efcf5fc4f32891dd9a4431bc92f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711975430374
+status: 1
+tags: []
+user_id: Dell
