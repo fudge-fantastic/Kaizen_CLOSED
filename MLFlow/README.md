@@ -13,9 +13,7 @@ Checkout the loan_pred.py and debug.ipynb file to follow the process and know ho
 - Create a MLProject.yaml file, define the parameters (recommended: go through their documentation)
 - Create a python_env/conda_env.yaml file and write all dependencies (can be obtained from MLFlow test cases ---> Artifacts)
 - Copy paste according to your needs and run the MLProject.yaml file using the commnad: (mlflow run .)
-<br>
-You might need to install pyenv, follow the below steps: <br>
-https://k0nze.dev/posts/install-pyenv-venv-vscode/
+- You might need to install pyenv (make sure to restart the PC/Laptop): https://k0nze.dev/posts/install-pyenv-venv-vscode/
 
 
 #### Checkpoint-3 (for test-model.py)
@@ -23,7 +21,48 @@ https://k0nze.dev/posts/install-pyenv-venv-vscode/
 2. Goto the mlflow ui and search for the best model logged, goto Atifacts and copy-paste the Prediction code into the file created and run the script
 3. Now, try using this command: (mlflow models serve -m (copy-paste the file path you'll find it in the Artifact section) --port 9000)
 4. Something like this:
-5. mlflow models serve -m file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/968621513001670637/5dcff8bf11644b5287deff690ec75a84/artifacts/LogisticRegression 
+5. mlflow models serve -m D:/MLOps/Orignals/MLOps/MLFlow/mlruns/968621513001670637/5dcff8bf11644b5287deff690ec75a84/artifacts/LogisticRegression --port 9000
+6. [LOG: IOError: [Errno 13] Permission denied] How to resolve? Run the VSCode or Terminal as Administrator.
+7. Rerun the command that raised the error, install postman.
+8. Goto postman, instead of GET use POST and copy paste Server ID (for example-  http://127.0.0.1:9000/invocations). Now goto Body and select raw radio button and select the format as JSON, beutify and click SEND button
+9. You can also use http://localhost:9000
+10. You can also use the following code in GitBash 
+
+``` 
+curl --location 'http://127.0.0.1:9000/invocations' \
+--header 'Content-Type: application/json' \
+--data '{
+    "dataframe_split": {
+        "columns": [
+            "Gender",
+            "Married",
+            "Dependents",
+            "Education",
+            "Self_Employed",
+            "LoanAmount",
+            "Loan_Amount_Term",
+            "Credit_History",
+            "Property_Area",
+            "TotalIncome"
+        ],
+        "data": [
+            [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                4.98745,
+                360.0,
+                1.0,
+                2.0,
+                8.698
+            ]
+        ]
+    }
+}' 
+```
+
 
 ##### Note:
 Make sure to check out the documentation of these below:
