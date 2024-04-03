@@ -1,8 +1,9 @@
 artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/968621513001670637/c384345d29984f3eabc90e4b420e63c0/artifacts
+deleted_time: 1712071543668
 end_time: null
 entry_point_name: ''
 experiment_id: '968621513001670637'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: c384345d29984f3eabc90e4b420e63c0
 run_name: ambitious-ant-685
 run_uuid: c384345d29984f3eabc90e4b420e63c0

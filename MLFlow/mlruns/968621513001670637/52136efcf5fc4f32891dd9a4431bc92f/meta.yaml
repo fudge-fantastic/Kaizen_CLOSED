@@ -1,8 +1,9 @@
 artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/968621513001670637/52136efcf5fc4f32891dd9a4431bc92f/artifacts
+deleted_time: 1712071543686
 end_time: null
 entry_point_name: ''
 experiment_id: '968621513001670637'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 52136efcf5fc4f32891dd9a4431bc92f
 run_name: traveling-gull-926
 run_uuid: 52136efcf5fc4f32891dd9a4431bc92f
