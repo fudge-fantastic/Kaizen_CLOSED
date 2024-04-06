@@ -1,5 +1,4 @@
-# ===================================================================================================================== #
-# Note: Make sure to follow the usual process for the project, such as Cleaning, EDA, Prediction, and Evaluation.
+# Note: Make sure to follow the usual process for the project, such as Cleaning, EDA, Prediction, and Evaluation #
 # Then only proceed to write this script 
 
 import os
@@ -14,6 +13,9 @@ from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier
 import mlflow
 from sklearn import metrics
 import matplotlib.pyplot as plt 
+
+# For Logging this into MySQL
+mlflow.set_tracking_uri("http://localhost:5000/")
 
 # Import and seperate the dataset into two categories: categorical_columns and numeric_columns  
 dataset = pd.read_csv('train.csv')
@@ -54,15 +56,14 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 lr = LogisticRegression(max_iter=1000)
 dt = DecisionTreeClassifier()
 gbc = GradientBoostingClassifier()
-abc = AdaBoostClassifier()
+abc = AdaBoostClassifier(algorithm='SAMME')
 
 model_log = lr.fit(X_train, y_train)
 model_dt = dt.fit(X_train, y_train)
 model_gbc = gbc.fit(X_train, y_train)
 model_abc = abc.fit(X_train, y_train)
 
-# ===================================================================================================================== #
-# MLFLOW
+# ==================================================MLFLOW=============================================== #
 
 mlflow.set_experiment("Loan_Prediction")
 def eval_metrics(actual, pred):
@@ -91,7 +92,8 @@ def eval_metrics(actual, pred):
 
 def mlflow_logging(model, X, y, name):
     with mlflow.start_run() as run:
-        # mlflow.set_tracking_uri("http://0.0.0.0:5000/")
+        # Setting Tracking URI for each run (Log)
+        mlflow.set_tracking_uri("http://localhost:5000/")
         run_id = run.info.run_id
         mlflow.set_tag("run_id", run_id)      
         pred = model.predict(X)

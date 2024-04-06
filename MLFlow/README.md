@@ -62,6 +62,21 @@ curl --location 'http://127.0.0.1:9000/invocations' \
     }
 }' 
 ```
+#### Checkpoint-4 (Log Model metrics in MySQL)
+1. pip install mysqlclient in Venv
+2. mlflow server --host 0.0.0.0 --port 5001 --backend-store-uri mysql://username:password@localhost (---> address to connect to your database)/schema_name --default-artifact-root $PWD/mlruns or mlflow server --backend-store-uri mysql+pymysql://(username):(password)@(host):(port)/(database) --host 0.0.0.0
+3. Just in case if you wanna change your MySQL server password, Search for MySQL Server directory and open bin folder, click on address bar and type cmd, then use command: mysqladmin -u root -p password (new_password). After hitting enter, enter the old password to update the password.
+4. Now goto your loan_pred.py file and set the tracking URI as (http://0.0.0.0:5001) which will be given after executing that command in the 2nd point.
+5. Uncomment mlflow.set_tracking_uri("http://0.0.0.0:5001/") in the loan_pred.py file and run it.
+6. mlflow server --host 0.0.0.0 --port 5001 --backend-store-uri mysql://root:bluesalt123@localhost/db_mlflow --default-artifact-root $PWD/mlruns
+7. mlflow server --backend-store-uri mysql+pymysql://root:bluesalt123@localhost/db_mlflow --default-artifact-root $PWD/mlruns -h 0.0.0.0 -p 5000 (this worked!)
+8. NOTE: The --default-artifact-root is a directory for storing artifacts for every new experiment
+
+#### Checkpoint-5 (Registring the model)
+1. Choose any random run_id from the mlflow ui (can be found in artifacts section)
+2. Click Register the Model (and create new model with your choice of name)
+3. Choose the Stage of your choice, for now choose Staging (deprecated)
+4. ---
 
 
 ##### Note:
