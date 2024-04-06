@@ -76,10 +76,4 @@ curl --location 'http://127.0.0.1:9000/invocations' \
 1. Choose any random run_id from the mlflow ui (can be found in artifacts section)
 2. Click Register the Model (and create new model with your choice of name)
 3. Choose the Stage of your choice, for now choose Staging (deprecated)
-4. ---
-
-
-##### Note:
-Make sure to check out the documentation of these below:
-- Argparse
-- MLFlow  
+4. Needs to be practiced more!
