@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/Docker/docker-mlflow/mlruns/0/2927b27281cf44a98ca36bae93cefa6e/artifacts
+end_time: 1712484252228
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 2927b27281cf44a98ca36bae93cefa6e
+run_name: selective-stork-466
+run_uuid: 2927b27281cf44a98ca36bae93cefa6e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712484238170
+status: 4
+tags: []
+user_id: Dell
