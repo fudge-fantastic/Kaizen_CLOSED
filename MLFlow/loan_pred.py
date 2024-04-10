@@ -67,12 +67,12 @@ model_abc = abc.fit(X_train, y_train)
 
 mlflow.set_experiment("Loan_Prediction")
 def eval_metrics(actual, pred):
-    accuracy = metrics.accuracy_score(actual, pred)
-    precision = metrics.precision_score(actual, pred)
-    recall = metrics.recall_score(actual, pred)
-    f1 = metrics.f1_score(actual, pred)
+    accuracy = metrics.accuracy_score(actual, pred)*100
+    precision = metrics.precision_score(actual, pred)*100
+    recall = metrics.recall_score(actual, pred)*100
+    f1 = metrics.f1_score(actual, pred)*100
     fpr, tpr, _ = metrics.roc_curve(actual, pred)
-    auc = metrics.auc(fpr, tpr)
+    auc = metrics.auc(fpr, tpr)*100
     # Plot ROC curve
     plt.figure(figsize=(8,8))
     plt.plot(fpr, tpr, color='blue', label='ROC curve area = %0.2f' % auc)

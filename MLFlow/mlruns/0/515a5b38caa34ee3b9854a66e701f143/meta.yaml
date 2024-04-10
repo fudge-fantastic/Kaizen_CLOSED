@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/515a5b38caa34ee3b9854a66e701f143/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 515a5b38caa34ee3b9854a66e701f143
+run_name: sneaky-zebra-418
+run_uuid: 515a5b38caa34ee3b9854a66e701f143
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712751273428
+status: 1
+tags: []
+user_id: owner

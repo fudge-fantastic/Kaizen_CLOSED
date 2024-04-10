@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/465030820307055676/ec4dd23b11284a6aa22aa9e2441b21d1/artifacts
+end_time: 1712753046907
+entry_point_name: ''
+experiment_id: '465030820307055676'
+lifecycle_stage: active
+run_id: ec4dd23b11284a6aa22aa9e2441b21d1
+run_name: clean-kite-265
+run_uuid: ec4dd23b11284a6aa22aa9e2441b21d1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712753045802
+status: 3
+tags: []
+user_id: owner

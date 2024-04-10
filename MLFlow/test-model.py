@@ -1,8 +1,6 @@
 import mlflow
-import warnings
-warnings.filterwarnings('ignore')
-mlflow.set_tracking_uri(f"file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/968621513001670637/5dcff8bf11644b5287deff690ec75a84/artifacts/LogisticRegression")
-logged_model = 'runs:/5dcff8bf11644b5287deff690ec75a84/LogisticRegression'
+mlflow.set_tracking_uri(f"file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/465030820307055676/3b169120da184d3f9feb530521678c8d/artifacts/LogisticRegression")
+logged_model = 'runs:/3b169120da184d3f9feb530521678c8d/artifacts/LogisticRegression'
 
 # Load model as a PyFuncModel.
 loaded_model = mlflow.pyfunc.load_model(logged_model)
@@ -22,3 +20,5 @@ data = [[
                 8.698
             ]]
 print(f"Prediction is : {loaded_model.predict(pd.DataFrame(data))}")
+
+# mlflow models serve -m <artifact_path> --port 9000

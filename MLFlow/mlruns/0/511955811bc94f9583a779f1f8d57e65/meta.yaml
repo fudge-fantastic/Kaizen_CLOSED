@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/511955811bc94f9583a779f1f8d57e65/artifacts
+end_time: 1712751730723
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 511955811bc94f9583a779f1f8d57e65
+run_name: unequaled-ray-225
+run_uuid: 511955811bc94f9583a779f1f8d57e65
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712751670338
+status: 4
+tags: []
+user_id: owner

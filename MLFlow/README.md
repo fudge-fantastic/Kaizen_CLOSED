@@ -2,11 +2,12 @@
 
 ---
 
-#### Checkpoint-1
+#### Checkpoint-1 
 1. Create Virtual Environment
 2. Install the mlflow: pip install mlflow
 3. Use the command: mlflow ui (to access the UI of MLFlow) and it will grant you a link (local host)
 4. Copy paste it into the browser and explore!
+5. (stats: success)
 
 #### Checkpoint-2 (for MLProject and python_env file)
 Checkout the loan_pred.py and debug.ipynb file to follow the process and know how the logging works in MLFlow. Instead of using loan_pred.py file, we use MLProject.yaml, why? An MLflow Project is a format for packaging data science code in a reusable and reproducible way, based primarily on conventions. In addition, the Projects component includes an API and command-line tools for running projects, making it possible to chain together projects into workflows. 
@@ -14,6 +15,9 @@ Checkout the loan_pred.py and debug.ipynb file to follow the process and know ho
 - Create a python_env/conda_env.yaml file and write all dependencies (can be obtained from MLFlow test cases ---> Artifacts)
 - Copy paste according to your needs and run the MLProject.yaml file using the commnad: (mlflow run .)
 - You might need to install pyenv (make sure to restart the PC/Laptop): https://k0nze.dev/posts/install-pyenv-venv-vscode/
+- After successful installation, don't forget to setup the 'PYENV_ROOT' path, for instance: export PYENV_ROOT="C:\Users\owner\.pyenv\pyenv-win"
+- Make sure you use the experiment name too: mlflow run . --experiment-name "Loan_Prediction"
+- (stats: success)
 
 
 #### Checkpoint-3 (for test-model.py)
@@ -27,6 +31,7 @@ Checkout the loan_pred.py and debug.ipynb file to follow the process and know ho
 8. Goto postman, instead of GET use POST and copy paste Server ID (for example-  http://127.0.0.1:9000/invocations). Now goto Body and select raw radio button and select the format as JSON, beutify and click SEND button
 9. You can also use http://localhost:9000
 10. You can also use the following code in GitBash 
+11. (stats: success)
 
 ``` 
 curl --location 'http://127.0.0.1:9000/invocations' \

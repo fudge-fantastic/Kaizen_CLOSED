@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/465030820307055676/1bea56d2e77f4b92abfa63002748ea3c/artifacts
+end_time: 1712753048441
+entry_point_name: ''
+experiment_id: '465030820307055676'
+lifecycle_stage: active
+run_id: 1bea56d2e77f4b92abfa63002748ea3c
+run_name: ambitious-panda-371
+run_uuid: 1bea56d2e77f4b92abfa63002748ea3c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712753039435
+status: 3
+tags: []
+user_id: owner

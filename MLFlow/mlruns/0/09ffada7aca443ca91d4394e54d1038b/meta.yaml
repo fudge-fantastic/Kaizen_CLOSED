@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/09ffada7aca443ca91d4394e54d1038b/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 09ffada7aca443ca91d4394e54d1038b
+run_name: resilient-squid-65
+run_uuid: 09ffada7aca443ca91d4394e54d1038b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712750651117
+status: 1
+tags: []
+user_id: owner
