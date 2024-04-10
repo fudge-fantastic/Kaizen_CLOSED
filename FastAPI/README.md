@@ -20,4 +20,7 @@
 ### What is PyDantic
 - It's the parsing library
 - Simplifies the data type (basically you can assign the datatype while receiving the input)
-- 
+
+<br><br>
+
+NOTE: ALMOST ANYTHING CAN BE VIEWED OR TESTED ON THE SWAGGER UI, NOT NECESSARILY HAS TO BE POSTMAN
