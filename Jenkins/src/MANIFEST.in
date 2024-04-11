@@ -1,0 +1,8 @@
+include *.txt
+include *.md
+include *.ipynb
+include *.pkl
+include *.csv
+include MLPackages/VERSION
+
+recursive-exclude * __pycache__
