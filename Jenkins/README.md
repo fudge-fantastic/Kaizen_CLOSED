@@ -14,4 +14,42 @@ Source Code in Git ---> Perform Model Training ---> Testing ---> Deployment on D
 ### Steps
 1. Create or Copy paste the package you made into the new_folder (let's call it Jenkins)
 2. In Jenkins, create a new folder called 'src', and init paste the whole package folder.
-3. Install the requirements.txt file and install the package we made too: pip install src/.
+3. Install the requirements.txt file and install the package we made too: pip install src/. 
+(Made some serious changes in the packages, try configuring the setup file by adding your choice of files)
+4. Create a main.py file, and execute it.
+```json
+{
+  "Gender": "Male",
+  "Married": "No",
+  "Dependents": "2",
+  "Education": "Graduate",
+  "Self_Employed": "No",
+  "ApplicantIncome": 5849,
+  "CoapplicantIncome": 0,
+  "LoanAmount": 1000,
+  "Loan_Amount_Term": 1,
+  "Credit_History": "1.0",
+  "Property_Area": "Rural"
+}
+```
+5. Now follow the Dockerfile given in the folder. Next, build the docker file using command: 
+  - docker buildx build --tag loan_pred_test:v1 . (note the dot, its to let Docker know that the Docker file exist in our CD)
+  - docker image (to validate if worked or not)
+  - Create a new one docker buildx build --tag bluesalt321/cicd:version_1 . (will create a build in the hub for registarying purpose)
+  - And push the Container: docker push bluesalt321/cicd:version_1
+  - Now to run it in the Container Instance, we'll use: docker run -d -it --name testing_loan_model -p 8888:5000 bluesalt321/cicd:version_1 bash
+  - Next, run the command to test the Docker Locally: docker exec testing_loan_model python MLPackages/training_pipeline.py
+  - After the success, use this command for :  docker exec testing_loan_model pytest -v --junitxml testresults.xml --cache-clear
+    - -v: This flag mounts a volume from the host machine into the container.
+    - JUnit XML is a framework that generates XML files for test execution. It's a common XML format for generating test results, and most CI systems support it so that more advanced reports can be displayed
+6. 
+
+#### Error logs:
+- pywin32 incompatibility (status:fixed, how? removed it, lol)
+- pytest failed the test in the tests/test_prediction.py
+
+### Notes
+##### 1. What is CORSMiddleware
+CORS is a web security mechanism that restricts how a web page from one domain can request resources from a different domain. It's important to manage CORS appropriately to prevent unauthorized access to your API from untrusted origins. <br>
+Middleware in FastAPI: <br>
+Middleware is a layer of software that sits between the web server and your application code. It can perform various tasks like request processing, logging, and handling CORS.

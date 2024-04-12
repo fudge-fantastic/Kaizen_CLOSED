@@ -23,13 +23,15 @@ classification_pipeline = load_pipeline()
 #     result = {'prediction': output}
 #     return result
 
-def generate_predictions():
+def generate_predictions(data):
     test_data = load_dataset(config.TEST_DATA)
     pred = classification_pipeline.predict(test_data[config.FEATURES])
     output = np.where(pred==1, "Y", "N")
-    print(output)
+    # print(output)
+    result = {'Prediction': output.tolist()}
     # result = {'Prediction': output}
-    return output
+    # return output
+    return result
 
 if __name__ =='__main__':
     generate_predictions()

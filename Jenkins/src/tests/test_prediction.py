@@ -14,7 +14,7 @@ sys.path.append(path)
 
 from MLPackages.config import config
 from MLPackages.processing.data_handling import load_dataset
-from predict import generate_predictions
+from MLPackages.predict import generate_predictions
 
 # Fixtures ---> Functions before the test function ---> Ensure single_prediction works 
 # Marking important function as a fixture
@@ -32,7 +32,7 @@ def test_single_pred_isnot_none(single_prediction):
 
 # Checks if the output is string data-type
 def test_single_pred_is_str_type(single_prediction):
-    assert isinstance(single_prediction.get('prediction')[0], str)
+    assert isinstance(single_prediction.get('Prediction')[0], str)
 
 def test_single_pred_validate(single_prediction):
-    assert single_prediction.get('prediction')[0] == 'Y'
+    assert single_prediction.get('Prediction')[0] == 'Y'
