@@ -44,7 +44,7 @@ setup(
   url = URL,
   packages= setuptools.find_packages(),
   # Update this line to add extra dependencies
-  package_data= {'MLPackages' : ['VERSION', 'classification.pkl', 'datasets/*.csv']},  
+  package_data= {'MLPackages' : ['VERSION', 'classification.pkl', 'datasets/*.csv', 'trained_models/*.pkl']},  
   install_requires = list_req(),
   include_package_data= True,
   license='MIT'

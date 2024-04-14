@@ -16,7 +16,8 @@ Source Code in Git ---> Perform Model Training ---> Testing ---> Deployment on D
 2. In Jenkins, create a new folder called 'src', and init paste the whole package folder.
 3. Install the requirements.txt file and install the package we made too: pip install src/. 
 (Made some serious changes in the packages, try configuring the setup file by adding your choice of files)
-4. Create a main.py file, and execute it.
+4. Create a main.py file, and execute it using command: python main.py.
+
 ```json
 {
   "Gender": "Male",
@@ -31,18 +32,31 @@ Source Code in Git ---> Perform Model Training ---> Testing ---> Deployment on D
   "Credit_History": "1.0",
   "Property_Area": "Rural"
 }
-```
-5. Now follow the Dockerfile given in the folder. Next, build the docker file using command: 
-  - docker buildx build --tag loan_pred_test:v1 . (note the dot, its to let Docker know that the Docker file exist in our CD)
-  - docker image (to validate if worked or not)
-  - Create a new one docker buildx build --tag bluesalt321/cicd:version_1 . (will create a build in the hub for registarying purpose)
+``` 
+
+5. Let's do some Docker Deployement
+  - Build a Docker Image: docker build -t image19 .
+  - Run the Container (with Port Mapping): docker run -d -it --name container19 -p 5000:3000 image19:v1 bash; Verify using: docker ps
+  - docker exec -it container19 bash; pip install uvicorn; pytest -v --junitxml testresults_2.xml --cache-clear
+  - Get Test Results: docker cp container19:/code/src/testresults_2.xml .
+  - Run the App: docker exec -d container19 uvicorn /code/main:app --proxy-headers --host localhost --port 8005 
+
+
+5. Now follow the Dockerfile given in the folder. Next, build the docker file using command (this one is from udemy): 
+  - Create a new one: docker buildx build --tag bluesalt321/cicd:version_1 . (will create a Docker Image)
   - And push the Container: docker push bluesalt321/cicd:version_1
-  - Now to run it in the Container Instance, we'll use: docker run -d -it --name testing_loan_model -p 8888:5000 bluesalt321/cicd:version_1 bash
+  - Now to run it in the Container Instance, we'll use: docker run -d -it --name testing_loan_model -p 8005:8005 bluesalt321/cicd:version_1 bash
   - Next, run the command to test the Docker Locally: docker exec testing_loan_model python MLPackages/training_pipeline.py
-  - After the success, use this command for :  docker exec testing_loan_model pytest -v --junitxml testresults.xml --cache-clear
+  - After the success, use this command for:  docker exec testing_loan_model pytest -v --junitxml testresults.xml --cache-clear
     - -v: This flag mounts a volume from the host machine into the container.
     - JUnit XML is a framework that generates XML files for test execution. It's a common XML format for generating test results, and most CI systems support it so that more advanced reports can be displayed
-6. 
+  - To get the results of the in the XML file, we can use: docker cp testing_loan_model:/code/src/testresults.xml .
+  - It has created and deployed the application on the Docker Container, run the command: docker exec -d -w /code testing_loan_model python main.py (doesn't work)
+  - docker exec -d testing_loan_model python /code/main.py (worked) 
+
+6. Create Docker File, Docker-Compose.yaml file, and make sure to configure main.py file
+  - Build the Docker image using: docker-compose build
+  - Run the Docker image using: docker-compose up
 
 #### Error logs:
 - pywin32 incompatibility (status:fixed, how? removed it, lol)

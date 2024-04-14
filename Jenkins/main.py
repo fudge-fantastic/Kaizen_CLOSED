@@ -1,3 +1,4 @@
+# main.py file
 from fastapi import FastAPI
 from pydantic import BaseModel
 import uvicorn
@@ -81,5 +82,5 @@ def predict_gui(Gender: str,
         pred = "Rejected"
     return {"status":pred}
 
-if __name__== "__main__":
-    uvicorn.run(app, host="localhost",port=8005)
+# if __name__== "__main__":
+#     uvicorn.run(app, host="localhost",port=8081)
