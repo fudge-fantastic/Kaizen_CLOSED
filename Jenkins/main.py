@@ -1,9 +1,10 @@
 # main.py file
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import uvicorn
 import pandas as pd 
 import numpy as np
+from typing import List, Dict
 
 # CORSMiddleware: Cross-Origin-Resource-Sharing-MiddleWare
 from fastapi.middleware.cors import CORSMiddleware
@@ -39,6 +40,13 @@ class LoanPrediction(BaseModel):
     Credit_History: float
     Property_Area: str
 
+    @classmethod
+    def from_input_data(cls, input_data: List[str]) -> 'LoanPrediction':
+        cols = ['Gender', 'Married', 'Dependents', 'Education',
+                'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount',
+                'Loan_Amount_Term', 'Credit_History', 'Property_Area']
+        data_dict = dict(zip(cols, input_data))
+        return cls(**data_dict)
 
 @app.get("/")
 def index():
@@ -46,7 +54,7 @@ def index():
 
 @app.post("/prediction_api")
 def predict(loan_details: LoanPrediction):
-    data = loan_details.model_dump()
+    data = loan_details.dict()
     prediction = generate_predictions([data])["Prediction"][0]
     if prediction == "Y":
         pred = "Approved"
@@ -55,32 +63,14 @@ def predict(loan_details: LoanPrediction):
     return {"status":pred}
 
 @app.post("/prediction_ui")
-def predict_gui(Gender: str,
-    Married: str,
-    Dependents: str,
-    Education: str,
-    Self_Employed: str,
-    ApplicantIncome: float,
-    CoapplicantIncome: float,
-    LoanAmount: float,
-    Loan_Amount_Term: float,
-    Credit_History: float,
-    Property_Area: str):
-
-    input_data = [Gender, Married,Dependents, Education, Self_Employed,ApplicantIncome,
-     CoapplicantIncome,LoanAmount, Loan_Amount_Term,Credit_History, Property_Area  ]
-    
-    cols = ['Gender', 'Married', 'Dependents', 'Education',
-       'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount',
-       'Loan_Amount_Term', 'Credit_History', 'Property_Area']
-    
-    data_dict = dict(zip(cols,input_data))
-    prediction = generate_predictions([data_dict])["Prediction"][0]
+def predict_gui(input_data: List[str]):
+    try:
+        loan_details = LoanPrediction.from_input_data(input_data)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    prediction = generate_predictions([loan_details.dict()])["Prediction"][0]
     if prediction == "Y":
         pred = "Approved"
     else:
         pred = "Rejected"
     return {"status":pred}
-
-# if __name__== "__main__":
-#     uvicorn.run(app, host="localhost",port=8081)
