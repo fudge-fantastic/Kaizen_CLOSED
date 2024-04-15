@@ -6,6 +6,5 @@ services:
     build: .
     image: image12  
     container_name: container12  
-    # command: sh -c "uvicorn main:app --reload --port=3000 --host=localhost"
     ports:
       - 3000:3000

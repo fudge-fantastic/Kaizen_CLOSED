@@ -1,15 +1,14 @@
 # Docker file
 # Base image using Python 3.11
-FROM python:3.11
+FROM python:3.11-slim-buster
 
 # Working directory within the container
 WORKDIR /code
 
 # This line copies all the files from the current directory (.) into a directory named /code within the Docker container.
-COPY . /code
+COPY . .
 
-# Update package lists (recommended for fresh installs)
-# Install system dependencies (adjust if needed)
+# Update package lists (recommended for fresh installs) and installs system dependencies (adjust if needed)
 RUN apt-get update && apt-get install -y build-essential libpq-dev
 
 # Upgrade pip (optional)
@@ -22,6 +21,6 @@ RUN pip install --upgrade -r /code/src/requirements.txt
 ENV PYTHONPATH="${PYTHONPATH}:/code/src"
 
 # Executes the Application
-CMD ["uvicorn", "main:app", "--reload", "--host=localhost", "--port=3000"]
+RUN ["python", "main.py"]
 
 

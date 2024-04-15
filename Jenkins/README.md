@@ -41,7 +41,6 @@ Source Code in Git ---> Perform Model Training ---> Testing ---> Deployment on D
   - Get Test Results: docker cp container19:/code/src/testresults_2.xml .
   - Run the App: docker exec -d container19 uvicorn /code/main:app --proxy-headers --host localhost --port 8005 
 
-
 5. Now follow the Dockerfile given in the folder. Next, build the docker file using command (this one is from udemy): 
   - Create a new one: docker buildx build --tag bluesalt321/cicd:version_1 . (will create a Docker Image)
   - And push the Container: docker push bluesalt321/cicd:version_1
@@ -54,7 +53,7 @@ Source Code in Git ---> Perform Model Training ---> Testing ---> Deployment on D
   - It has created and deployed the application on the Docker Container, run the command: docker exec -d -w /code testing_loan_model python main.py (doesn't work)
   - docker exec -d testing_loan_model python /code/main.py (worked) 
 
-6. Create Docker File, Docker-Compose.yaml file, and make sure to configure main.py file
+5. Create Docker File, Docker-Compose.yaml file, and make sure to configure main.py file
   - Build the Docker image using: docker-compose build
   - Run the Docker image using: docker-compose up
 
