@@ -16,21 +16,20 @@ warnings.filterwarnings('ignore')
 SAVED_MODEL_PATH = os.path.join(path2, "trained_models", config.MODEL_SAVED)
 classification_pipeline = load_pipeline()
 
-# def generate_predictions(data_input):
-#     data = pd.DataFrame(data_input)
-#     pred = classification_pipeline.predict(data[config.FEATURES])
-#     output = np.where(pred==1, "Y", "N")
-#     result = {'prediction': output}
-#     return result
+# for CI/CD
+def generate_predictions(data_input):
+    data = pd.DataFrame(data_input)
+    pred = classification_pipeline.predict(data[config.FEATURES])
+    output = np.where(pred==1, "Y", "N")
+    result = {'prediction': output}
+    return result
 
-def generate_predictions(data):
+def generate_predictions_2222(data):
     test_data = load_dataset(config.TEST_DATA)
     pred = classification_pipeline.predict(test_data[config.FEATURES])
     output = np.where(pred==1, "Y", "N")
     # print(output)
-    result = {'Prediction': output.tolist()}
-    # result = {'Prediction': output}
-    # return output
+    result = {'prediction': output.tolist()}
     return result
 
 if __name__ =='__main__':

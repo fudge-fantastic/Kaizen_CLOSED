@@ -57,6 +57,10 @@ Source Code in Git ---> Perform Model Training ---> Testing ---> Deployment on D
   - Build the Docker image using: docker-compose build
   - Run the Docker image using: docker-compose up
 
+5. Create a Docker file; docker buid -t imagename .(will create a Docker Image)
+  - docker run -p 8000:8000 imagename
+
+
 #### Error logs:
 - pywin32 incompatibility (status:fixed, how? removed it, lol)
 - pytest failed the test in the tests/test_prediction.py

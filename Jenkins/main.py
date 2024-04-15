@@ -55,20 +55,21 @@ def predict(loan_details: LoanPrediction):
     return {"status":pred}
 
 @app.post("/prediction_ui")
-def predict_gui(Gender: str,
-    Married: str,
-    Dependents: str,
-    Education: str,
-    Self_Employed: str,
-    ApplicantIncome: float,
-    CoapplicantIncome: float,
-    LoanAmount: float,
-    Loan_Amount_Term: float,
-    Credit_History: float,
-    Property_Area: str):
+def predict_gui(gender: str,
+    married: str,
+    dependents: str,
+    education: str,
+    self_employed: str,
+    applicant_income: float,
+    coapplicant_income: float,
+    loan_amount: float,
+    loan_amount_term: float,
+    credit_history: float,
+    property_area: str):
 
-    input_data = [Gender, Married,Dependents, Education, Self_Employed,ApplicantIncome,
-     CoapplicantIncome,LoanAmount, Loan_Amount_Term,Credit_History, Property_Area  ]
+
+    input_data = [gender, married, dependents, education, self_employed, applicant_income,
+     coapplicant_income, loan_amount, loan_amount_term, credit_history, property_area]
     
     cols = ['Gender', 'Married', 'Dependents', 'Education',
        'Self_Employed', 'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount',
@@ -83,4 +84,5 @@ def predict_gui(Gender: str,
     return {"status":pred}
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    # uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
