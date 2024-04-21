@@ -102,7 +102,31 @@ sudo systemctl status jenkins
   - Now, we have to setup the webhooks ---> goto the project repo; settings; webhooks; In Payload URL, we have to copy paste the ServerID on which the Jenkins is running (for instance, Jenkins is running on AWS Ubuntu server: http://3.108.221.179:8080/) (and we setup it as: http://3.108.221.179:8080/github-webhook/)  and set it as application/json, then create the webhook.
   - Since, in Jenkins, we're using Github plugin, we want to setup the plugin for it to work; goto Manage Jenkins ---> Look for Github; Give any name, select credentials, Checkbox Manage Hooks, and test the connection. 
 
-8. Create a new project in Jenkins, and select the project type as 
+8. Create a new project in Jenkins, and select the project type as Freestle project. In Build-Steps, you can specify the 'Execute shell' and input the command of your choice, for instance, we can write: echo "Build has been initiated!" and in another 'Execute shell' you could write: echo "Build has been created successfully!" and echo $BUILD_ID (this can be found in the: the list of available environment variables). Hit Apply and Save the project. Next select the 'Build Now' and you can notice the build was successful.
+
+9. Testing Github Webhooks in Jenkins
+  - Make sure you Github Webhook is matched to the Jenkins Public Address, if not, change it in the Github Webhooks and match it to your Jenkins/AWS Ubuntu Server Public IP.
+  - Now configure the Jenkins Project we made a few moments ago, in Source Code Management, select the radio - Git
+  - Copy-paste the Github Repo you're working on and what it'll do is, if changes are observed in the repository, the jenkin will pull the latest copy of the repository. 
+  - In Build Triggers, make sure to select Github hook trigger for GITScm polling. and save it.
+  - Make some changes in the Original Repo, and push it using -u origin main, refresh both jenkins and github repo page to note the difference. 
+
+10. This step is gonna be setting up the Docker plugin in the jenkins for the docker to work in the jenkins: Install the Docker Plugin in the Jenkins. Goto Cloud located in Manage Jenkins, Create a new cloud, copy-paste this unix:///var/run/docker.sock into the docker host URI (it's a source of communication between docker and EC2 instance or Jenkins is able to communicate with the Docker, make sure to test the connection)
+  - Create new Access Token in the Docker Hub (can be found in the settings) and copy-paste it into the Jenkins.
+  - We assign the Docker token as a password for the Jenkins Credentials Provider, save.
+  - Now goto Jenkins_Project ---> Configure ---> add new execute shell ---> docker run hello-world
+  - Test the build by clicking the 'Build now' and wait for it to complete, validate the process by checking the logs.
+
+11. Setting-up Email Notification Trigger
+  - In app password, generate a new password (can be found in Manage google accounts, save password somewhere)
+  - For System Admin e-mail address in Jenkins/manage/configure use your email to recieve notifications
+  - In Extended E-mail Notification ---> SMTP server: smpt.gmail.com ---> Advanced: create new credentials, add the password that you obtained from app password, save. And Select SSL and TLS, Assign the port to the choice of urs, for now we can use 465 
+  - Default Recipients and Reply To List: your mail
+  - Default Triggers ---> Always ---> Save 
+  - Goto project ---> configure ---> add Post-build Actions ---> Attach Build Log; Attach Build Log ---> save
+
+
+
 
 #### Error logs:
 - pywin32 incompatibility (status:fixed, how? removed it, lol)
