@@ -125,6 +125,29 @@ sudo systemctl status jenkins
   - Default Triggers ---> Always ---> Save 
   - Goto project ---> configure ---> add Post-build Actions ---> Attach Build Log; Attach Build Log ---> save
 
+12. Setting-up the Jenkins Pipeline and DOcker Deployement
+  - Login to Jenkins using the IPv4 Public Address (found in the instance, for port select : 8080)
+  - Use sudo cat /var/lib/jenkins/secrets/initialAdminPassword to get the password
+  - Create new freestyle project, fill-in/out the boxes for the following: 
+      - GitHub hook trigger for GITScm polling (check)
+      - Restrict where this project can be run (uncheck)
+  - Create a Execution Shell, copy-paste the commands below and save it:
+
+```
+echo "Cloning Successful"
+echo "Initiating Build"
+
+docker buid -t image_101 .
+
+echo "Build Complete"
+```
+
+  - Check if it was successful using the command: docker images.
+  - We can push the Docker using Jenkins: Configure the Project; Build Steps: Build/Publish Docker Image, use command $WORKSPACE (why this?)
+  - Because in logs, you can find this path, and with the help of ls, it'll show you the path to your main project/app: ls /var/lib/jenkins/workspace/Jenkins_Project_CICTCD
+  - Select Docker_Cloud in Cloud, Push IMage checkout  
+
+
 
 
 
