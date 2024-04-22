@@ -137,15 +137,38 @@ sudo systemctl status jenkins
 echo "Cloning Successful"
 echo "Initiating Build"
 
-docker buid -t image_101 .
+docker buid -t bluesalt321/image_101 .
 
 echo "Build Complete"
 ```
 
+```
+# Create this in Configurations
+# Retrieve credentials from Jenkins environment variables
+USERNAME=${DOCKER_USERNAME}
+PASSWORD=${DOCKER_PASSWORD}
+
+# Login using secure environment variables
+docker login -u "$USERNAME" -p "$PASSWORD" docker.io
+```
+
+
   - Check if it was successful using the command: docker images.
   - We can push the Docker using Jenkins: Configure the Project; Build Steps: Build/Publish Docker Image, use command $WORKSPACE (why this?)
   - Because in logs, you can find this path, and with the help of ls, it'll show you the path to your main project/app: ls /var/lib/jenkins/workspace/Jenkins_Project_CICTCD
-  - Select Docker_Cloud in Cloud, Push IMage checkout  
+  - Select Docker_Cloud in Cloud, Push Image checkout, Save. And Build
+
+13. Now we will test the application: 
+  - Create new Item, name the itme ---> Freestyle Project ---> Build Triggers; Build after other projects are built; Name of our current running project; Build Triggers; Build after other projects are built; Link the previous project; Trigger only if build is stable (This means only when my previous build is compplete, then only trigger this event)
+  - In execute shell: docker run -p 8000:8000 bluesalt321/image_101:latest
+  - In Jenkins_Project_CICTCD, click build now
+  - dude make sure to replace the 0.0.0.0 with the instance IP address (http://65.2.140.234:8080/ is our Instance Public IP, replace 8080 with 8000 to access the app http://65.2.140.234:8000/)
+  - To stop the container, use: docker stop (container-name); docker rm (container-name)
+
+14. Make sure to update the webhooks and the Jenkins URL in the configuration 
+- Now if you make changes inthe Repo, everything gets updated and the new build is triggered automatically in the Jenkins.
+
+
 
 
 
