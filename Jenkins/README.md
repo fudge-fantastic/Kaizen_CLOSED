@@ -184,3 +184,40 @@ docker login -u "$USERNAME" -p "$PASSWORD" docker.io
 CORS is a web security mechanism that restricts how a web page from one domain can request resources from a different domain. It's important to manage CORS appropriately to prevent unauthorized access to your API from untrusted origins. <br>
 Middleware in FastAPI: <br>
 Middleware is a layer of software that sits between the web server and your application code. It can perform various tasks like request processing, logging, and handling CORS.
+
+##### 2. What is Model Drift?
+Model drift refers to the phenomenon where the performance of a trained model degrades over time. This degradation happens because the underlying data distribution that the model was trained on changes in the real world. As a result, the model's predictions become less accurate and reliable. Causes of Model Drift:
+
+- Concept Drift: This occurs when the underlying relationship between the model's features and target variable changes. For example, a spam filter trained on historical email data might struggle with new spam tactics employed by attackers.
+- Data Drift: This happens when the distribution of the input data changes over time. Imagine a model trained to predict customer churn based on past purchasing behavior. If customer demographics or buying habits shift, the model's predictions might become inaccurate.
+
+2. Impacts of Model Drift:
+- Decreased Accuracy: Drifting models produce less accurate predictions, leading to poor decision-making.
+Wasted Resources: Resources are spent on maintaining a model that no longer performs well.
+- Loss of Customer Trust: Inaccurate predictions can erode customer trust and satisfaction.
+
+3. Detecting Model Drift:
+
+- Monitoring Performance Metrics: Track key performance metrics like accuracy, precision, recall, or F1-score (classification) or RMSE/MAE (regression) to identify performance dips.
+- Data Quality Monitoring: Monitor data distributions, missing values, and outliers to detect changes that might impact model performance.
+
+4. Preventing Model Drift:
+
+- Retraining Models: Regularly retrain your models on fresh data that reflects the current real-world scenario.
+- Concept Drift Detection Techniques: Utilize techniques like Early Warning Systems or statistical tests to identify concept drift and trigger retraining.
+- Online Learning: Explore online learning algorithms that allow models to learn incrementally from new data streams.
+
+5. Addressing Model Drift:
+
+- Retrain with New Data: Once drift is detected, retrain the model on a new dataset that incorporates the latest data distribution.
+- Concept Adaptation Techniques: If concept drift is frequent, consider techniques like transfer learning or model adaptation algorithms.
+Mitigating Model Drift:
+
+6. By implementing the following practices, you can minimize the impact of model drift:
+
+- Choose Stable Features: Select features for your model that are less susceptible to change over time.
+- Regularly Monitor Data and Performance: Continuously monitor both data quality and model performance to detect drift early.
+- Plan for Retraining: Establish a retraining schedule or a mechanism to trigger retraining when drift is detected.
+
+7. Conclusion:
+Model drift is a real challenge in machine learning systems deployed in the real world. By understanding the causes, impacts, and mitigation strategies, you can proactively monitor for drift, address it effectively, and ensure your models deliver optimal performance over time.
