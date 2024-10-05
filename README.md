@@ -1,4 +1,4 @@
-# Kaizen (改善) - MLOps Workflow
+# Kaizen (改善) 
 
 ### Step-by-Step Procedure:
 
