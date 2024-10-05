@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/MLOps/Orignals/MLOps/MLFlow/mlruns/465030820307055676/3649bfe5e65747c6bc90418055fddd53/artifacts
+end_time: 1717062864416
+entry_point_name: ''
+experiment_id: '465030820307055676'
+lifecycle_stage: active
+run_id: 3649bfe5e65747c6bc90418055fddd53
+run_name: intrigued-bear-544
+run_uuid: 3649bfe5e65747c6bc90418055fddd53
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717062862654
+status: 3
+tags: []
+user_id: owner

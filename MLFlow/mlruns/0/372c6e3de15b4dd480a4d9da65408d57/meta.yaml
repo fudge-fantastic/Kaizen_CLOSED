@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/372c6e3de15b4dd480a4d9da65408d57/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 372c6e3de15b4dd480a4d9da65408d57
+run_name: masked-newt-756
+run_uuid: 372c6e3de15b4dd480a4d9da65408d57
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717060516149
+status: 1
+tags: []
+user_id: owner

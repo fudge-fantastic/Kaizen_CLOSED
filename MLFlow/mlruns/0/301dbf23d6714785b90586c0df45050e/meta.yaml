@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/301dbf23d6714785b90586c0df45050e/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 301dbf23d6714785b90586c0df45050e
+run_name: hilarious-shad-490
+run_uuid: 301dbf23d6714785b90586c0df45050e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1717060276868
+status: 1
+tags: []
+user_id: owner
