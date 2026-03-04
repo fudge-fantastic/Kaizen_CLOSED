@@ -263,16 +263,164 @@ pytest tests/test_prediction.py
 }
 ```
 
-## 🎓 What I Learned
+## 🔧 Implementation Details
 
-Building this project taught me the complete MLOps lifecycle:
+### ML Package (`Package/`)
 
-1. **Package Development** - How to structure reusable ML code as installable packages
-2. **Experiment Management** - Systematic model comparison and tracking with MLFlow
-3. **API Design** - Both Flask (simplicity) and FastAPI (performance + features)
-4. **Containerization** - Isolating dependencies and creating reproducible environments
-5. **CI/CD** - Automating the entire deployment pipeline
-6. **Production Thinking** - Writing code that's maintainable, testable, and deployable
+The `MLPackages` package (v1.0.0) is structured as a proper Python installable package via `setup.py`. It contains:
+
+**Configuration (`config/config.py`)**
+- Centralizes all paths (data, model artifact) and feature definitions
+- Defines 11 input features split into numeric (`ApplicantIncome`, `LoanAmount`, `Loan_Amount_Term`) and categorical (`Gender`, `Married`, `Dependents`, `Education`, `Self_Employed`, `Credit_History`, `Property_Area`)
+- Declares `FEATURE_TO_MODIFY` (`ApplicantIncome`) and `FEATURE_TO_DROP` (`CoapplicantIncome`) for feature engineering
+- Model artifact saved to `MLPackages/trained_models/classification_model.pkl`
+
+**Custom Preprocessing Transformers (`processing/preprocessing.py`)**
+
+7 custom classes, all inheriting from scikit-learn's `BaseEstimator` and `TransformerMixin`:
+
+| Transformer | Purpose |
+|---|---|
+| `MeanImputer` | Fills missing numeric values with computed mean per column |
+| `ModeImputer` | Fills missing categorical values with mode per column |
+| `DomainProcessing` | Feature engineering — adds `CoapplicantIncome` into `ApplicantIncome` |
+| `DropColumns` | Drops `CoapplicantIncome` after income combination |
+| `CustomLabelEncoder` | Encodes categoricals by mapping value → integer based on sorted value counts |
+| `LogTransformer` | Applies `np.log()` to specified numeric features to reduce skew |
+| `MinMaxScaler` (sklearn) | Normalizes numeric features to [0, 1] range |
+
+**Scikit-learn Pipeline (`pipeline.py`)**
+
+Assembles all 7 transformers plus the final RandomForest model into a single `Pipeline` object — ensuring preprocessing and prediction are always applied consistently. The pipeline is serialized with `joblib` on training and deserialized on inference.
+
+**Training Pipeline (`training_pipeline.py`)**
+
+`perform_training()` loads `train.csv`, maps `Loan_Status` (Y→1, N→0), fits the full pipeline on the 11 features, and persists the pipeline artifact.
+
+**Prediction Module (`predict.py`)**
+
+`generate_predictions()` loads the serialized pipeline, runs it on test data, and maps predictions back to readable labels (1→"Y", 0→"N").
+
+**Data Handling (`processing/data_handling.py`)**
+
+`load_dataset()`, `save_pipeline()`, and `load_pipeline()` abstract all I/O behind simple function calls so training/prediction code stays clean.
+
+---
+
+### MLFlow Experiment Tracking (`MLFlow/`)
+
+**Setup**: Local MLFlow tracking server at `http://localhost:5000`, experiment named `"Loan_Prediction"`.
+
+**Model Comparison (`loan_pred.py`)**
+
+Trains and compares 4 classifiers on an 70/30 train-test split (`random_state=21`):
+- `LogisticRegression` (`max_iter=1000`)
+- `DecisionTreeClassifier`
+- `GradientBoostingClassifier`
+- `AdaBoostClassifier` (`algorithm='SAMME'`)
+
+Each run logs: **Accuracy, Precision, Recall, F1-Score, AUC** — plus a ROC curve PNG artifact (`plots/ROC_curve.png`) generated with matplotlib.
+
+**Preprocessing inside MLFlow scripts**: Categorical/numeric imputation (most_frequent / median) → log transform on income and loan columns → `TotalIncome = ApplicantIncome + CoapplicantIncome` feature engineering → label encoding — mirrors the package pipeline approach but implemented inline.
+
+**Basic MLFlow Demo (`basic_mlflow.py`)**: Demonstrates parameterized runs using the UCI wine quality dataset with ElasticNet regression, logging `alpha`, `l1_ratio`, RMSE, MAE, and R².
+
+**Refactored Version (`script.py`)**: Improved design with helper functions — `preprocess_data()`, `split_data()`, `train_models()`, `eval_metrics()`, `mlflow_logging()` — for cleaner separation of concerns.
+
+---
+
+### Flask API (`Flask/`)
+
+**Endpoints** (`app.py`):
+
+| Method | Route | Description |
+|---|---|---|
+| `GET` | `/` | Serves `homepage.html` — HTML form for user input |
+| `POST` | `/predict` | Accepts form data, runs prediction, renders result |
+
+**Prediction flow**: Form data parsed → `First_Name`/`Last_Name` stripped → all values cast to `int` → `TotalIncome = log(ApplicantIncome + CoapplicantIncome)` computed → 10-feature array fed to `RF_Loan_model.pkl` → approval/rejection string rendered in template.
+
+**HTML Form** (`templates/homepage.html`): Covers all 12 input fields — text inputs for income/loan fields, radio buttons for binary/categorical fields (Gender, Married, Education, Self_Employed, Credit_History, Property_Area).
+
+**Error handling**: Custom 404 and 500 handlers configured. Server binds to `0.0.0.0:80`.
+
+---
+
+### FastAPI (`FastAPI/`)
+
+**Pydantic Model** (`LoanPred`): Validates all 10 post-processed features as `float` — `Gender`, `Married`, `Dependents`, `Education`, `Self_Employed`, `LoanAmount`, `Loan_Amount_Term`, `Credit_History`, `Property_Area`, `TotalIncome`.
+
+**Endpoints** (`loan_pred_fastapi_app.py`):
+
+| Method | Route | Description |
+|---|---|---|
+| `GET` | `/` | `{"message": "Welcome to Loan Prediction App"}` |
+| `POST` | `/predict` | JSON body → prediction → `{"Status of Loan Application": "Approved"\|"Rejected"}` |
+
+**Prediction flow**: JSON parsed to dict → feature values extracted in fixed order → numpy array constructed → `RF_Loan_model.pkl` inference → 0/1 mapped to "Rejected"/"Approved".
+
+**Jenkins variant** (`Jenkins/main.py`): Extended FastAPI app with CORS middleware (all origins allowed), accepts string inputs for categorical features, and exposes two additional endpoints — `/prediction_api` (JSON body) and `/prediction_ui` (query parameters) — both calling `generate_predictions()` from the installed `MLPackages`.
+
+**Auto-generated docs**: Available at `http://127.0.0.1:8000/docs` (Swagger UI) and `/redoc`.
+
+---
+
+### Docker Containerization (`Docker/`)
+
+Four distinct container definitions, each with Python 3.11 base images:
+
+**Training Container** (`docker-loan-prediction/`):
+- Base: `python:3.11.8`
+- Copies source → installs `requirements.txt` → sets executable permissions
+- Entrypoint: `docker_train.py` (trains RandomForest, outputs `RF_Loan_model.pkl`)
+- Runs as a batch job (no exposed ports)
+
+**MLFlow Server Container** (`docker-mlflow/`):
+- Base: `python:3.11.8`
+- Installs: `mlflow`, `numpy`, `scipy`, `pandas`, `scikit-learn`, `cloudpickle`
+- Bundles wine quality dataset and training script
+- Intended to serve the MLFlow tracking server (port 5000)
+
+**Flask API Container** (`flask-app/`):
+- Base: `python:3.11.8`
+- Workdir: `/usr/src/app`
+- `pip install --no-cache-dir` for smaller image layers
+- `EXPOSE 5000` → `CMD ["python", "./app.py"]`
+
+**Jenkins Deployment Container** (`Jenkins/Dockerfile`):
+- Base: `python:3.11-slim-buster` (slim for smaller footprint)
+- System deps: `build-essential`, `libpq-dev` (build tools + PostgreSQL support)
+- Installs package from `src/` directory: `pip install src/.`
+- `EXPOSE 8000` → `CMD ["python", "main.py"]`
+
+**Docker Compose** (`Jenkins/docker-compose.yaml`): Single-service compose file mapping `image12` / `container12` on host port 8000 → container port 8000.
+
+---
+
+### CI/CD with Jenkins (`Jenkins/`)
+
+The Jenkins integration directory bundles a self-contained deployment unit:
+- A copy of `MLPackages` under `src/` — installed inside the container via `pip install src/.`
+- The extended `main.py` FastAPI app that imports from the installed package
+- A `Dockerfile` for containerized deployment
+- `docker-compose.yaml` for orchestration
+- Test suite under `src/tests/` run during the pipeline
+
+The pipeline connects to GitHub webhooks to trigger automated test → build → deploy cycles on every commit. The container approach ensures environment consistency between Jenkins builds and production.
+
+---
+
+### Testing (`Package/tests/`, `Jenkins/src/tests/`)
+
+Uses `pytest` with fixtures. The fixture loads the test dataset, runs `generate_predictions()` on the first row, and three test cases validate the result:
+
+| Test | Assertion |
+|---|---|
+| `test_single_pred_isnot_none` | Output is not `None` |
+| `test_single_pred_is_str_type` | Prediction value is a `str` |
+| `test_single_pred_validate` | Prediction equals `'Y'` for the known test row |
+
+Tests require the model to be trained and serialized beforehand, making them integration-level checks of the full pipeline.
 
 ## 🔮 Future Improvements
 
